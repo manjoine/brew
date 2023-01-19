@@ -3,9 +3,8 @@ on:
   push:
     branches:
     - stage
-    
 jobs:
-    frontend:
+  frontend:
     name: Upload frontend to Amazon S3 Bucket
     runs-on: s3
     defaults:
@@ -29,7 +28,7 @@ jobs:
     - name: Copy files to the bucket with the AWS CLI
       run: aws s3 sync build/ s3://rsm-cman-demo
       env:
-        REACT_APP_API_KEY: ${{ secrets.API_KEY }}
+        REACT_APP_API_KEY: ${{ secrets.REACT_APP_API_KEY }}
         SKIP_PREFLIGHT_CHECK: true
         PORT: 80
         NODE_ENV: stage

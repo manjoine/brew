@@ -1,0 +1,21 @@
+.logo {
+  background-image: url("../public/logo.png");
+  width: 125px;
+  height: 40px;
+  margin-top: 20px;
+  float: left;
+}
+
+.headerTitle {
+  color: white;
+  font-size: 24px;
+  float: left;
+  margin-left: 25px;
+}
+.search {
+  float: left;
+  width: 100%;
+  min-width: 300px;
+  max-width: 600px;
+  margin-left: 25px;
+}

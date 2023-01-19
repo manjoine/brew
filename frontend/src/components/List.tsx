@@ -10,7 +10,8 @@ interface TableParams {
   pagination?: TablePaginationConfig
   sortField?: string
   sortOrder?: string
-  filters?: Record<string, FilterValue>
+  filters?: Record<string, FilterValue>,
+  search?: string
 }
 
 export interface DataType {
@@ -43,7 +44,7 @@ const List: React.FC<listProp> = ({ search, setRecord }) => {
   const [tableParams, setTableParams] = useState<TableParams>({
     pagination: {
       current: 1,
-      pageSize: 10,
+      pageSize: 20,
     },
   })
 
@@ -88,6 +89,9 @@ const List: React.FC<listProp> = ({ search, setRecord }) => {
       ),
     },
   ]
+  const calcPageSize = (currentCount:number, perPage:number, page:number) => {
+      return page * perPage + (currentCount < perPage ? (currentCount - perPage) : perPage)
+  }
   const fetchData = () => {
     setLoading(true)
     fetch(
@@ -102,18 +106,31 @@ const List: React.FC<listProp> = ({ search, setRecord }) => {
         setTableParams({
           ...tableParams,
           pagination: {
-            ...tableParams.pagination,
-            total: 200,
-            // 200 is mock data, you should read it from server
-            // total: data.totalCount,
+            current: tableParams.pagination?.current,
+            pageSize: tableParams.pagination?.pageSize,
+            total: calcPageSize(results?.length || 0, tableParams.pagination?.pageSize || 20,tableParams.pagination?.current || 1),
+            showSizeChanger: false
           },
+          search: search
+
         })
       })
   }
-
+  useEffect(() => {
+    setTableParams({
+      ...tableParams,
+      pagination: {
+        current: 1,
+        pageSize: tableParams.pagination?.pageSize,
+        total: calcPageSize(data?.length || 0, tableParams.pagination?.pageSize || 20,tableParams.pagination?.current || 1),
+        showSizeChanger: false
+      },
+      search: search
+    })
+  },  [search])
   useEffect(() => {
     fetchData()
-  }, [JSON.stringify(tableParams), search])
+  }, [JSON.stringify(tableParams)])
 
   const handleTableChange = (pagination: TablePaginationConfig, sorter: SorterResult<DataType>) => {
     setTableParams({

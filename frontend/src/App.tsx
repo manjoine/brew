@@ -20,7 +20,7 @@ const App: FC = () => {
     <Layout className="layout">
       <Header>
         <div className="logo" />
-        <div className="headerTitle">RSM Search for Breweries By City</div>
+        <div className="headerTitle">RSM Search for Breweries by City</div>
         <div className="search">
           <Input
             style={{ width: 200 }}

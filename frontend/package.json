@@ -1,7 +1,10 @@
 {
-  "name": "rsm-brew-demo",
+  "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "v18"
+  },
   "dependencies": {
     "@ant-design/icons": "^5.0.0",
     "@react-google-maps/api": "^2.17.1",

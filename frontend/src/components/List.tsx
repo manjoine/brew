@@ -64,11 +64,9 @@ const List: React.FC<listProp> = ({ search, setRecord }) => {
         <>
           {name}
           {record.website_url && (
-            <Button>
               <a href={record.website_url} target={'blank'}>
                 <LinkOutlined />
               </a>
-            </Button>
           )}
         </>
       ),
